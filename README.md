@@ -35,77 +35,6 @@ Cell types for which generative models for at least some organelles have been bu
 
 * TBA
 
-### CellOrganizer v2.8.2
-#### Fixes
-* Fixed issue where OMETIFF with no ROI was considered an empty image.
-* Included support for Virtual Cell. Geometries can now be exported as VCML.
-
-#### Other
-* Added demo3D60 that exports an instance as VCML.
-
-### CellOrganizer v2.8.1
-
-#### Fixes
-* Display shape space when dataset field is not present or empty.
-* Generation of watertight SBML Spatial output has been corrected for translation errors.
-
-#### Other
-* The following models have been rebuilt using this version of CellOrganizer. Updated models can be found in the model repository.
-
-  - 2D HeLa diffeomorphic framework
-  - 2D HeLa PCA framework
-  - 2D HeLa classic framework
-
-* CellOrganizer for Galaxy now supports Galaxy server v19.05.
-
-#### Demo List
-
-The following demo scripts are included and have been tested in the image.
-
-| Demo Name| Training | Synthesis |
-|----------|----------|-----------|
-| demo2D00 |          |            X            |
-| demo2D01 |            X           |           |
-| demo2D02 |          |            X            |
-| demo2D04 |            X           |           |
-| demo2D05 |            X           |           |
-| demo2D06 |          |            X            |
-| demo2D07 |          |            X            |
-| demo2D08 |          |            |
-| demo2D09 |            X           |           |
-| demo3D00 |          |            X            |
-| demo3D11 |            X           |           |
-| demo3D12 |            X           |           |
-
-The demos in the table above are the same demos included in the Matlab distribution.
-
-### CellOrganizer v2.8.0
-
-#### Features
-* Added improved model for generating protein distributions during T cell synapse formation that only requires annotation of cell couples at a single time point model and improves synapse alignment. Includes training, synthesis and info demos.
-* Added outline PCA model for 2D cell and nuclear shapes. Includes training, synthesis and info demos.
-* Added SPHARM-RPDM model for 3D cell and nuclear shapes (see https://doi.org/10.1093/bioinformatics/bty983). Includes training, synthesis and info demos.
-
-#### Fixes
-* Fixed issues with options.train.flag. Valid options should be nuclear, cell, framework, and protein.
-
-#### Enhancements
-* Modularized and cleaned up img2slml.
-
-#### Demo List
-
-The following demo scripts are included in the image.
-
-| Demo Name| Training | Synthesis |
-|----------|----------|-----------|
-| demo2D00 |          |            X            |
-| demo2D01 |            X           |           |
-| demo3D00 |          |            X            |
-| demo3D11 |            X           |           |
-| demo3D12 |            X           |           |
-
-The demos in the table above are the same demos included in the Matlab distribution.
-
 ## Docker
 
 ### Installing Docker
@@ -115,59 +44,43 @@ Installing Docker is beyond the scope of this document. To learn about Docker Co
 * To install Docker-for-Mac, click [here](https://docs.docker.com/docker-for-mac/install/).
 * To install Docker-for-Windows, click [here](https://docs.docker.com/docker-for-windows/install/).
 
-### Installing Kitematic
-
-The easiest way to download an image and run a container is to use [Kitematic](https://kitematic.com/).
-
-* To install Kitematic, click [here](https://kitematic.com/docs/).
-
-### About the Docker container
-
-#### Downloading image and running container using Kitematic
-
-Running Kitematic will open a window that looks like this
-
-![Kitematic](https://raw.githubusercontent.com/icaoberg/docker-cellorganizer/master/images/kitematic.png)
-
-Use the searchbar to search for `cellorganizer`
-
-![CellOrganizer](https://raw.githubusercontent.com/icaoberg/docker-cellorganizer/master/images/cellorganizer.png)
-
-and click `Create`.
-
-#### Downloading image and running container
-
-
+## About the Docker container
+### Buillding or downloading image
 To build an image using the `Dockerfile` in this repository, run the command
 
 ```
-➜ docker build -t "murphylab/cellorganizer" .
+➜ bash ./build.sh
 ```
 
 The previous step should build an image
 
 ```
-➜  docker container ls -a
+➜ docker images
 
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS               NAMES
-48dde52f2bc8        murphylab/cellorganizer     "/bin/bash -c 'pyt..."   45 seconds ago      Exited (0) 39 seconds ago                         frosty_wescoff
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+icaoberg/cellorganizer-jupyter   latest              be76be002cbd        36 hours ago        9.25GB```
 ```
 
 To run a container using the image above
 
+If you do not wish to build the container and would like to pull the latest copy from Dockerhub, running
+
 ```
-➜  docker run -i -t murphylab/cellorganizer
+➜  bash ./pull.sh
 ```
 
-#### Additional files
+### Running the container
+To spin a container from the image above, running
 
-The container comes with
+```
+bash ./run.sh
+```
 
-* CellOrganizer binaries
-* [Generative models](http://www.cellorganizer.org/model_repository/)
-* [Murphy Lab 2D/3D HeLa datasets](http://murphylab.web.cmu.edu/data/)
-* [BioFormats tools](https://downloads.openmicroscopy.org/bio-formats/)
-* [vim-as-an-IDE](https://github.com/icaoberg/vim-as-an-ide)
+Running the script `run.sh`
+
+* create a folder on your Desktop called `data`
+* download a collection of images to `data`
+* will start the container
 
 ## Contributing
 

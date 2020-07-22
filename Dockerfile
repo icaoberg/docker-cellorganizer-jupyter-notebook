@@ -62,8 +62,7 @@ RUN ln -s /opt/bftools/bfconvert /usr/local/bin/bfconvert && \
 	ln -s /opt/bftools/xmlvalid /usr/local/bin/xmlvalid
 
 # COPY CELLORGANIZER BINARIES FROM INTERMEDIATE TO FINAL IMAGE
-WORKDIR /opt
-COPY cellorganizer-binaries .
+ADD cellorganizer-binaries /opt/cellorganizer-binaries/.
 RUN	chmod +x /opt/cellorganizer-binaries/img2slml && \
 	chmod +x /opt/cellorganizer-binaries/slml2img && \
 	chmod +x /opt/cellorganizer-binaries/slml2report && \

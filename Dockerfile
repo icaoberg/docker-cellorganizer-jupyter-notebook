@@ -17,17 +17,10 @@ RUN wget --quiet --no-check-certificate -nc https://downloads.openmicroscopy.org
 
 ###############################################################################################
 # INSTALL CELLORGANIZER BINARIES
-WORKDIR /home/murphylab
 USER root
-RUN echo "Downloading CellOrganizer v2.9.0" && \
-	cd ~/ && \
-	wget -nc --quiet http://www.cellorganizer.org/Downloads/latest/docker/cellorganizer-binaries.tgz && \
-	tar -xvf cellorganizer-binaries.tgz && \
-	rm cellorganizer-binaries.tgz && \
-	mv cellorganizer-binaries /opt
-
 RUN mkdir /home/murphylab/cellorganizer-python && mkdir /home/murphylab/cellorganizer
-COPY cellorganizer-python /home/murphylab/cellorganizer-python
+WORKDIR /home/murphylab
+ADD cellorganizer-python /home/murphylab/cellorganizer-python
 ###############################################################################################
 
 ###############################################################################################
@@ -69,7 +62,8 @@ RUN ln -s /opt/bftools/bfconvert /usr/local/bin/bfconvert && \
 	ln -s /opt/bftools/xmlvalid /usr/local/bin/xmlvalid
 
 # COPY CELLORGANIZER BINARIES FROM INTERMEDIATE TO FINAL IMAGE
-COPY --from=intermediate /opt/cellorganizer-binaries /opt/cellorganizer-binaries
+WORKDIR /opt
+COPY cellorganizer-binaries .
 RUN	chmod +x /opt/cellorganizer-binaries/img2slml && \
 	chmod +x /opt/cellorganizer-binaries/slml2img && \
 	chmod +x /opt/cellorganizer-binaries/slml2report && \

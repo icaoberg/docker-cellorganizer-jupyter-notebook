@@ -9,5 +9,13 @@ cd cellorganizer-python
 git checkout master
 cd ..
 
-docker build --no-cache -t icaoberg/cellorganizer-jupyter:latest .
+if [ ! -f cellorganizer-binaries.tgz ]; then
+    wget -nc --quiet http://www.cellorganizer.org/Downloads/latest/docker/cellorganizer-binaries.tgz
+fi
+ 
+tar -xvf cellorganizer-binaries.tgz && \
+rm cellorganizer-binaries.tgz
+
+#docker build --no-cache -t icaoberg/cellorganizer-jupyter:latest .
+docker build -t icaoberg/cellorganizer-jupyter:latest .
 docker tag icaoberg/cellorganizer-jupyter:latest icaoberg/cellorganizer-jupyter:v2.9.0
